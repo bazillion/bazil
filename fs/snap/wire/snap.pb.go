@@ -17,42 +17,124 @@ It has these top-level messages:
 package wire
 
 import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
+import math "math"
 import bazil_cas "bazil.org/bazil/cas/wire"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
+var _ = fmt.Errorf
+var _ = math.Inf
 
 type Dirent struct {
 	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	File *File  `protobuf:"bytes,2,opt,name=file" json:"file,omitempty"`
-	Dir  *Dir   `protobuf:"bytes,3,opt,name=dir" json:"dir,omitempty"`
+	// Types that are valid to be assigned to Type:
+	//	*Dirent_File
+	//	*Dirent_Dir
+	Type isDirent_Type `protobuf_oneof:"type"`
 }
 
-func (m *Dirent) Reset()         { *m = Dirent{} }
-func (m *Dirent) String() string { return proto.CompactTextString(m) }
-func (*Dirent) ProtoMessage()    {}
+func (m *Dirent) Reset()                    { *m = Dirent{} }
+func (m *Dirent) String() string            { return proto.CompactTextString(m) }
+func (*Dirent) ProtoMessage()               {}
+func (*Dirent) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+
+type isDirent_Type interface {
+	isDirent_Type()
+}
+
+type Dirent_File struct {
+	File *File `protobuf:"bytes,2,opt,name=file,oneof"`
+}
+type Dirent_Dir struct {
+	Dir *Dir `protobuf:"bytes,3,opt,name=dir,oneof"`
+}
+
+func (*Dirent_File) isDirent_Type() {}
+func (*Dirent_Dir) isDirent_Type()  {}
+
+func (m *Dirent) GetType() isDirent_Type {
+	if m != nil {
+		return m.Type
+	}
+	return nil
+}
 
 func (m *Dirent) GetFile() *File {
-	if m != nil {
-		return m.File
+	if x, ok := m.GetType().(*Dirent_File); ok {
+		return x.File
 	}
 	return nil
 }
 
 func (m *Dirent) GetDir() *Dir {
-	if m != nil {
-		return m.Dir
+	if x, ok := m.GetType().(*Dirent_Dir); ok {
+		return x.Dir
 	}
 	return nil
+}
+
+// XXX_OneofFuncs is for the internal use of the proto package.
+func (*Dirent) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), []interface{}) {
+	return _Dirent_OneofMarshaler, _Dirent_OneofUnmarshaler, []interface{}{
+		(*Dirent_File)(nil),
+		(*Dirent_Dir)(nil),
+	}
+}
+
+func _Dirent_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	m := msg.(*Dirent)
+	// type
+	switch x := m.Type.(type) {
+	case *Dirent_File:
+		b.EncodeVarint(2<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.File); err != nil {
+			return err
+		}
+	case *Dirent_Dir:
+		b.EncodeVarint(3<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Dir); err != nil {
+			return err
+		}
+	case nil:
+	default:
+		return fmt.Errorf("Dirent.Type has unexpected type %T", x)
+	}
+	return nil
+}
+
+func _Dirent_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	m := msg.(*Dirent)
+	switch tag {
+	case 2: // type.file
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(File)
+		err := b.DecodeMessage(msg)
+		m.Type = &Dirent_File{msg}
+		return true, err
+	case 3: // type.dir
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Dir)
+		err := b.DecodeMessage(msg)
+		m.Type = &Dirent_Dir{msg}
+		return true, err
+	default:
+		return false, nil
+	}
 }
 
 type File struct {
 	Manifest *bazil_cas.Manifest `protobuf:"bytes,1,opt,name=manifest" json:"manifest,omitempty"`
 }
 
-func (m *File) Reset()         { *m = File{} }
-func (m *File) String() string { return proto.CompactTextString(m) }
-func (*File) ProtoMessage()    {}
+func (m *File) Reset()                    { *m = File{} }
+func (m *File) String() string            { return proto.CompactTextString(m) }
+func (*File) ProtoMessage()               {}
+func (*File) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
 func (m *File) GetManifest() *bazil_cas.Manifest {
 	if m != nil {
@@ -69,9 +151,10 @@ type Dir struct {
 	Align uint32 `protobuf:"varint,2,opt,name=align" json:"align,omitempty"`
 }
 
-func (m *Dir) Reset()         { *m = Dir{} }
-func (m *Dir) String() string { return proto.CompactTextString(m) }
-func (*Dir) ProtoMessage()    {}
+func (m *Dir) Reset()                    { *m = Dir{} }
+func (m *Dir) String() string            { return proto.CompactTextString(m) }
+func (*Dir) ProtoMessage()               {}
+func (*Dir) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
 
 func (m *Dir) GetManifest() *bazil_cas.Manifest {
 	if m != nil {
@@ -87,13 +170,41 @@ type Snapshot struct {
 	Contents *Dirent `protobuf:"bytes,2,opt,name=contents" json:"contents,omitempty"`
 }
 
-func (m *Snapshot) Reset()         { *m = Snapshot{} }
-func (m *Snapshot) String() string { return proto.CompactTextString(m) }
-func (*Snapshot) ProtoMessage()    {}
+func (m *Snapshot) Reset()                    { *m = Snapshot{} }
+func (m *Snapshot) String() string            { return proto.CompactTextString(m) }
+func (*Snapshot) ProtoMessage()               {}
+func (*Snapshot) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
 
 func (m *Snapshot) GetContents() *Dirent {
 	if m != nil {
 		return m.Contents
 	}
 	return nil
+}
+
+func init() {
+	proto.RegisterType((*Dirent)(nil), "bazil.snap.Dirent")
+	proto.RegisterType((*File)(nil), "bazil.snap.File")
+	proto.RegisterType((*Dir)(nil), "bazil.snap.Dir")
+	proto.RegisterType((*Snapshot)(nil), "bazil.snap.Snapshot")
+}
+
+var fileDescriptor0 = []byte{
+	// 244 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0x52, 0x4f, 0x4a, 0xac, 0xca,
+	0xcc, 0xd1, 0xcb, 0x2f, 0x4a, 0xd7, 0x07, 0xb3, 0xf4, 0xd3, 0x8a, 0xf5, 0x8b, 0xf3, 0x12, 0x0b,
+	0xf4, 0xcb, 0x33, 0x8b, 0x52, 0xc1, 0x2c, 0xbd, 0x82, 0xa2, 0xfc, 0x92, 0x7c, 0x21, 0x2e, 0x88,
+	0x42, 0x90, 0x88, 0x14, 0x86, 0xa6, 0xe4, 0xc4, 0x62, 0x88, 0x86, 0xdc, 0xc4, 0xbc, 0xcc, 0xb4,
+	0xd4, 0xe2, 0x12, 0x88, 0x26, 0xa5, 0x04, 0x2e, 0x36, 0x17, 0xa0, 0x70, 0x5e, 0x89, 0x10, 0x0f,
+	0x17, 0x4b, 0x5e, 0x62, 0x6e, 0xaa, 0x04, 0xa3, 0x02, 0xa3, 0x06, 0xa7, 0x90, 0x02, 0x17, 0x4b,
+	0x5a, 0x66, 0x4e, 0xaa, 0x04, 0x13, 0x90, 0xc7, 0x6d, 0x24, 0xa0, 0x87, 0x30, 0x5b, 0xcf, 0x0d,
+	0x28, 0xee, 0xc1, 0x20, 0x24, 0xc7, 0xc5, 0x9c, 0x92, 0x59, 0x24, 0xc1, 0x0c, 0x56, 0xc0, 0x8f,
+	0xac, 0x00, 0x68, 0xa0, 0x07, 0x83, 0x13, 0x1b, 0x17, 0x4b, 0x49, 0x65, 0x41, 0xaa, 0x92, 0x2e,
+	0x17, 0x0b, 0x48, 0x87, 0x90, 0x2a, 0x17, 0x07, 0xcc, 0x6e, 0xb0, 0x1d, 0xdc, 0x46, 0xc2, 0x50,
+	0x4d, 0x40, 0xb7, 0xe9, 0xf9, 0x42, 0xa5, 0x94, 0xac, 0xb9, 0x98, 0x81, 0xfa, 0x89, 0x54, 0x2d,
+	0xc4, 0xcb, 0xc5, 0x9a, 0x98, 0x93, 0x99, 0x9e, 0x07, 0x76, 0x27, 0xaf, 0x92, 0x1d, 0x17, 0x47,
+	0x30, 0xd0, 0x05, 0xc5, 0x19, 0xf9, 0xe8, 0xfe, 0x51, 0xe1, 0xe2, 0x48, 0xce, 0xcf, 0x2b, 0x01,
+	0x7a, 0xb4, 0x18, 0xea, 0x27, 0x21, 0x34, 0x27, 0x03, 0xa5, 0x9c, 0xd8, 0xa2, 0x58, 0x40, 0x81,
+	0x94, 0xc4, 0x06, 0x0e, 0x1c, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0xd3, 0x58, 0x1a, 0xbd,
+	0x7c, 0x01, 0x00, 0x00,
 }
