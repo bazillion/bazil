@@ -5,25 +5,31 @@
 package wire
 
 import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
+import math "math"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
+var _ = fmt.Errorf
+var _ = math.Inf
 
 type VolumeMountRequest struct {
 	VolumeName string `protobuf:"bytes,1,opt,name=volumeName" json:"volumeName,omitempty"`
 	Mountpoint string `protobuf:"bytes,2,opt,name=mountpoint" json:"mountpoint,omitempty"`
 }
 
-func (m *VolumeMountRequest) Reset()         { *m = VolumeMountRequest{} }
-func (m *VolumeMountRequest) String() string { return proto.CompactTextString(m) }
-func (*VolumeMountRequest) ProtoMessage()    {}
+func (m *VolumeMountRequest) Reset()                    { *m = VolumeMountRequest{} }
+func (m *VolumeMountRequest) String() string            { return proto.CompactTextString(m) }
+func (*VolumeMountRequest) ProtoMessage()               {}
+func (*VolumeMountRequest) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{0} }
 
 type VolumeMountResponse struct {
 }
 
-func (m *VolumeMountResponse) Reset()         { *m = VolumeMountResponse{} }
-func (m *VolumeMountResponse) String() string { return proto.CompactTextString(m) }
-func (*VolumeMountResponse) ProtoMessage()    {}
+func (m *VolumeMountResponse) Reset()                    { *m = VolumeMountResponse{} }
+func (m *VolumeMountResponse) String() string            { return proto.CompactTextString(m) }
+func (*VolumeMountResponse) ProtoMessage()               {}
+func (*VolumeMountResponse) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{1} }
 
 type VolumeCreateRequest struct {
 	VolumeName     string `protobuf:"bytes,1,opt,name=volumeName" json:"volumeName,omitempty"`
@@ -31,16 +37,18 @@ type VolumeCreateRequest struct {
 	SharingKeyName string `protobuf:"bytes,3,opt,name=sharingKeyName" json:"sharingKeyName,omitempty"`
 }
 
-func (m *VolumeCreateRequest) Reset()         { *m = VolumeCreateRequest{} }
-func (m *VolumeCreateRequest) String() string { return proto.CompactTextString(m) }
-func (*VolumeCreateRequest) ProtoMessage()    {}
+func (m *VolumeCreateRequest) Reset()                    { *m = VolumeCreateRequest{} }
+func (m *VolumeCreateRequest) String() string            { return proto.CompactTextString(m) }
+func (*VolumeCreateRequest) ProtoMessage()               {}
+func (*VolumeCreateRequest) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{2} }
 
 type VolumeCreateResponse struct {
 }
 
-func (m *VolumeCreateResponse) Reset()         { *m = VolumeCreateResponse{} }
-func (m *VolumeCreateResponse) String() string { return proto.CompactTextString(m) }
-func (*VolumeCreateResponse) ProtoMessage()    {}
+func (m *VolumeCreateResponse) Reset()                    { *m = VolumeCreateResponse{} }
+func (m *VolumeCreateResponse) String() string            { return proto.CompactTextString(m) }
+func (*VolumeCreateResponse) ProtoMessage()               {}
+func (*VolumeCreateResponse) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{3} }
 
 type VolumeConnectRequest struct {
 	// Must be exactly 32 bytes long.
@@ -51,16 +59,18 @@ type VolumeConnectRequest struct {
 	SharingKeyName  string `protobuf:"bytes,5,opt,name=sharingKeyName" json:"sharingKeyName,omitempty"`
 }
 
-func (m *VolumeConnectRequest) Reset()         { *m = VolumeConnectRequest{} }
-func (m *VolumeConnectRequest) String() string { return proto.CompactTextString(m) }
-func (*VolumeConnectRequest) ProtoMessage()    {}
+func (m *VolumeConnectRequest) Reset()                    { *m = VolumeConnectRequest{} }
+func (m *VolumeConnectRequest) String() string            { return proto.CompactTextString(m) }
+func (*VolumeConnectRequest) ProtoMessage()               {}
+func (*VolumeConnectRequest) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{4} }
 
 type VolumeConnectResponse struct {
 }
 
-func (m *VolumeConnectResponse) Reset()         { *m = VolumeConnectResponse{} }
-func (m *VolumeConnectResponse) String() string { return proto.CompactTextString(m) }
-func (*VolumeConnectResponse) ProtoMessage()    {}
+func (m *VolumeConnectResponse) Reset()                    { *m = VolumeConnectResponse{} }
+func (m *VolumeConnectResponse) String() string            { return proto.CompactTextString(m) }
+func (*VolumeConnectResponse) ProtoMessage()               {}
+func (*VolumeConnectResponse) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{5} }
 
 type VolumeStorageAddRequest struct {
 	VolumeName     string `protobuf:"bytes,1,opt,name=volumeName" json:"volumeName,omitempty"`
@@ -69,16 +79,18 @@ type VolumeStorageAddRequest struct {
 	SharingKeyName string `protobuf:"bytes,4,opt,name=sharingKeyName" json:"sharingKeyName,omitempty"`
 }
 
-func (m *VolumeStorageAddRequest) Reset()         { *m = VolumeStorageAddRequest{} }
-func (m *VolumeStorageAddRequest) String() string { return proto.CompactTextString(m) }
-func (*VolumeStorageAddRequest) ProtoMessage()    {}
+func (m *VolumeStorageAddRequest) Reset()                    { *m = VolumeStorageAddRequest{} }
+func (m *VolumeStorageAddRequest) String() string            { return proto.CompactTextString(m) }
+func (*VolumeStorageAddRequest) ProtoMessage()               {}
+func (*VolumeStorageAddRequest) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{6} }
 
 type VolumeStorageAddResponse struct {
 }
 
-func (m *VolumeStorageAddResponse) Reset()         { *m = VolumeStorageAddResponse{} }
-func (m *VolumeStorageAddResponse) String() string { return proto.CompactTextString(m) }
-func (*VolumeStorageAddResponse) ProtoMessage()    {}
+func (m *VolumeStorageAddResponse) Reset()                    { *m = VolumeStorageAddResponse{} }
+func (m *VolumeStorageAddResponse) String() string            { return proto.CompactTextString(m) }
+func (*VolumeStorageAddResponse) ProtoMessage()               {}
+func (*VolumeStorageAddResponse) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{7} }
 
 type VolumeSyncRequest struct {
 	VolumeName string `protobuf:"bytes,1,opt,name=volumeName" json:"volumeName,omitempty"`
@@ -87,13 +99,54 @@ type VolumeSyncRequest struct {
 	Path string `protobuf:"bytes,3,opt,name=path" json:"path,omitempty"`
 }
 
-func (m *VolumeSyncRequest) Reset()         { *m = VolumeSyncRequest{} }
-func (m *VolumeSyncRequest) String() string { return proto.CompactTextString(m) }
-func (*VolumeSyncRequest) ProtoMessage()    {}
+func (m *VolumeSyncRequest) Reset()                    { *m = VolumeSyncRequest{} }
+func (m *VolumeSyncRequest) String() string            { return proto.CompactTextString(m) }
+func (*VolumeSyncRequest) ProtoMessage()               {}
+func (*VolumeSyncRequest) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{8} }
 
 type VolumeSyncResponse struct {
 }
 
-func (m *VolumeSyncResponse) Reset()         { *m = VolumeSyncResponse{} }
-func (m *VolumeSyncResponse) String() string { return proto.CompactTextString(m) }
-func (*VolumeSyncResponse) ProtoMessage()    {}
+func (m *VolumeSyncResponse) Reset()                    { *m = VolumeSyncResponse{} }
+func (m *VolumeSyncResponse) String() string            { return proto.CompactTextString(m) }
+func (*VolumeSyncResponse) ProtoMessage()               {}
+func (*VolumeSyncResponse) Descriptor() ([]byte, []int) { return fileDescriptor4, []int{9} }
+
+func init() {
+	proto.RegisterType((*VolumeMountRequest)(nil), "bazil.control.VolumeMountRequest")
+	proto.RegisterType((*VolumeMountResponse)(nil), "bazil.control.VolumeMountResponse")
+	proto.RegisterType((*VolumeCreateRequest)(nil), "bazil.control.VolumeCreateRequest")
+	proto.RegisterType((*VolumeCreateResponse)(nil), "bazil.control.VolumeCreateResponse")
+	proto.RegisterType((*VolumeConnectRequest)(nil), "bazil.control.VolumeConnectRequest")
+	proto.RegisterType((*VolumeConnectResponse)(nil), "bazil.control.VolumeConnectResponse")
+	proto.RegisterType((*VolumeStorageAddRequest)(nil), "bazil.control.VolumeStorageAddRequest")
+	proto.RegisterType((*VolumeStorageAddResponse)(nil), "bazil.control.VolumeStorageAddResponse")
+	proto.RegisterType((*VolumeSyncRequest)(nil), "bazil.control.VolumeSyncRequest")
+	proto.RegisterType((*VolumeSyncResponse)(nil), "bazil.control.VolumeSyncResponse")
+}
+
+var fileDescriptor4 = []byte{
+	// 339 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x8c, 0x93, 0xcf, 0x4e, 0xc2, 0x40,
+	0x10, 0xc6, 0x53, 0xa8, 0x18, 0x27, 0xfe, 0xad, 0x20, 0x8d, 0x07, 0x63, 0x7a, 0x30, 0x9c, 0xa8,
+	0x89, 0x4f, 0xa0, 0x1e, 0x8d, 0x1e, 0xd0, 0x90, 0xe8, 0x6d, 0x5b, 0x26, 0xd0, 0x58, 0x76, 0xea,
+	0x76, 0x0b, 0xc1, 0x97, 0xf0, 0x65, 0x7c, 0x40, 0xed, 0xee, 0x42, 0x4b, 0x21, 0xa1, 0xb7, 0xe9,
+	0xf7, 0xcd, 0xee, 0xfc, 0xbe, 0xdd, 0x2e, 0xdc, 0x06, 0xec, 0x3b, 0x8a, 0xfb, 0x24, 0xc6, 0xbe,
+	0xaa, 0xfc, 0x14, 0xc5, 0x0c, 0x85, 0x1f, 0x12, 0x97, 0x82, 0x62, 0x7f, 0x1e, 0x09, 0xf4, 0x67,
+	0x14, 0x67, 0x53, 0xec, 0x27, 0x82, 0x24, 0x39, 0x47, 0x7a, 0x85, 0x69, 0xf0, 0xde, 0xc0, 0x19,
+	0x2a, 0xfb, 0x99, 0x32, 0x2e, 0x07, 0xf8, 0x95, 0x61, 0x2a, 0x9d, 0x2b, 0x00, 0xbd, 0xe8, 0x85,
+	0x4d, 0xd1, 0xb5, 0xae, 0xad, 0xde, 0xc1, 0xa0, 0xa4, 0xe4, 0xfe, 0x34, 0xef, 0x4f, 0x28, 0xe2,
+	0xd2, 0x6d, 0x68, 0xbf, 0x50, 0xbc, 0x0e, 0x9c, 0xaf, 0xed, 0x9a, 0x26, 0xc4, 0x53, 0xf4, 0xe6,
+	0x4b, 0xf9, 0x51, 0x20, 0x93, 0x58, 0x77, 0x9a, 0x0b, 0xfb, 0x01, 0x0b, 0x3f, 0x91, 0x8f, 0xcc,
+	0xa8, 0xe5, 0xa7, 0x73, 0x03, 0xc7, 0xe9, 0x84, 0x89, 0x88, 0x8f, 0x9f, 0x70, 0xa1, 0x56, 0x37,
+	0x55, 0x43, 0x45, 0xf5, 0x2e, 0xa0, 0xbd, 0x3e, 0xd8, 0x00, 0xfd, 0x5a, 0x2b, 0x83, 0x38, 0xc7,
+	0x70, 0x75, 0x00, 0xa7, 0xd0, 0x4c, 0xb2, 0x40, 0xb1, 0x1c, 0x0e, 0xf2, 0xb2, 0x02, 0xd9, 0xd8,
+	0x80, 0xec, 0xc1, 0x49, 0x4c, 0x21, 0x8b, 0x87, 0x45, 0x93, 0x66, 0xa9, 0xca, 0xe5, 0x38, 0xf6,
+	0xae, 0x38, 0x7b, 0x5b, 0xe3, 0x74, 0xa1, 0x53, 0xa1, 0x36, 0x79, 0x7e, 0x2c, 0xe8, 0x6a, 0xe7,
+	0x55, 0x92, 0x60, 0x63, 0xbc, 0x1f, 0x8d, 0xea, 0x9e, 0xb2, 0x03, 0x36, 0x2f, 0xa2, 0xa9, 0xba,
+	0x8c, 0xda, 0xdc, 0x85, 0x6a, 0x6f, 0x45, 0xbd, 0x04, 0x77, 0x13, 0xc8, 0xd0, 0xbe, 0xc3, 0x99,
+	0xf1, 0x16, 0x3c, 0xac, 0x8b, 0x69, 0x6e, 0xa6, 0x51, 0xdc, 0xcc, 0x3f, 0x78, 0xc2, 0xe4, 0xc4,
+	0x10, 0xaa, 0xda, 0x6b, 0x2f, 0x7f, 0x6b, 0xbd, 0xb5, 0x1e, 0xf8, 0xd0, 0xfa, 0xb0, 0xf3, 0x07,
+	0x11, 0xb4, 0xd4, 0x53, 0xb8, 0xfb, 0x0b, 0x00, 0x00, 0xff, 0xff, 0xd7, 0xa7, 0x69, 0x48, 0x3e,
+	0x03, 0x00, 0x00,
+}

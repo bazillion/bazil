@@ -17,42 +17,149 @@ It has these top-level messages:
 package wire
 
 import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
+import math "math"
 import bazil_cas "bazil.org/bazil/cas/wire"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
+var _ = fmt.Errorf
+var _ = math.Inf
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the proto package it is being compiled against.
+const _ = proto.ProtoPackageIsVersion1
 
 type Dirent struct {
 	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	File *File  `protobuf:"bytes,2,opt,name=file" json:"file,omitempty"`
-	Dir  *Dir   `protobuf:"bytes,3,opt,name=dir" json:"dir,omitempty"`
+	// Types that are valid to be assigned to Type:
+	//	*Dirent_File
+	//	*Dirent_Dir
+	Type isDirent_Type `protobuf_oneof:"type"`
 }
 
-func (m *Dirent) Reset()         { *m = Dirent{} }
-func (m *Dirent) String() string { return proto.CompactTextString(m) }
-func (*Dirent) ProtoMessage()    {}
+func (m *Dirent) Reset()                    { *m = Dirent{} }
+func (m *Dirent) String() string            { return proto.CompactTextString(m) }
+func (*Dirent) ProtoMessage()               {}
+func (*Dirent) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+
+type isDirent_Type interface {
+	isDirent_Type()
+}
+
+type Dirent_File struct {
+	File *File `protobuf:"bytes,2,opt,name=file,oneof"`
+}
+type Dirent_Dir struct {
+	Dir *Dir `protobuf:"bytes,3,opt,name=dir,oneof"`
+}
+
+func (*Dirent_File) isDirent_Type() {}
+func (*Dirent_Dir) isDirent_Type()  {}
+
+func (m *Dirent) GetType() isDirent_Type {
+	if m != nil {
+		return m.Type
+	}
+	return nil
+}
 
 func (m *Dirent) GetFile() *File {
-	if m != nil {
-		return m.File
+	if x, ok := m.GetType().(*Dirent_File); ok {
+		return x.File
 	}
 	return nil
 }
 
 func (m *Dirent) GetDir() *Dir {
-	if m != nil {
-		return m.Dir
+	if x, ok := m.GetType().(*Dirent_Dir); ok {
+		return x.Dir
 	}
 	return nil
+}
+
+// XXX_OneofFuncs is for the internal use of the proto package.
+func (*Dirent) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
+	return _Dirent_OneofMarshaler, _Dirent_OneofUnmarshaler, _Dirent_OneofSizer, []interface{}{
+		(*Dirent_File)(nil),
+		(*Dirent_Dir)(nil),
+	}
+}
+
+func _Dirent_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	m := msg.(*Dirent)
+	// type
+	switch x := m.Type.(type) {
+	case *Dirent_File:
+		b.EncodeVarint(2<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.File); err != nil {
+			return err
+		}
+	case *Dirent_Dir:
+		b.EncodeVarint(3<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Dir); err != nil {
+			return err
+		}
+	case nil:
+	default:
+		return fmt.Errorf("Dirent.Type has unexpected type %T", x)
+	}
+	return nil
+}
+
+func _Dirent_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	m := msg.(*Dirent)
+	switch tag {
+	case 2: // type.file
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(File)
+		err := b.DecodeMessage(msg)
+		m.Type = &Dirent_File{msg}
+		return true, err
+	case 3: // type.dir
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Dir)
+		err := b.DecodeMessage(msg)
+		m.Type = &Dirent_Dir{msg}
+		return true, err
+	default:
+		return false, nil
+	}
+}
+
+func _Dirent_OneofSizer(msg proto.Message) (n int) {
+	m := msg.(*Dirent)
+	// type
+	switch x := m.Type.(type) {
+	case *Dirent_File:
+		s := proto.Size(x.File)
+		n += proto.SizeVarint(2<<3 | proto.WireBytes)
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *Dirent_Dir:
+		s := proto.Size(x.Dir)
+		n += proto.SizeVarint(3<<3 | proto.WireBytes)
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case nil:
+	default:
+		panic(fmt.Sprintf("proto: unexpected type %T in oneof", x))
+	}
+	return n
 }
 
 type File struct {
 	Manifest *bazil_cas.Manifest `protobuf:"bytes,1,opt,name=manifest" json:"manifest,omitempty"`
 }
 
-func (m *File) Reset()         { *m = File{} }
-func (m *File) String() string { return proto.CompactTextString(m) }
-func (*File) ProtoMessage()    {}
+func (m *File) Reset()                    { *m = File{} }
+func (m *File) String() string            { return proto.CompactTextString(m) }
+func (*File) ProtoMessage()               {}
+func (*File) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
 func (m *File) GetManifest() *bazil_cas.Manifest {
 	if m != nil {
@@ -69,9 +176,10 @@ type Dir struct {
 	Align uint32 `protobuf:"varint,2,opt,name=align" json:"align,omitempty"`
 }
 
-func (m *Dir) Reset()         { *m = Dir{} }
-func (m *Dir) String() string { return proto.CompactTextString(m) }
-func (*Dir) ProtoMessage()    {}
+func (m *Dir) Reset()                    { *m = Dir{} }
+func (m *Dir) String() string            { return proto.CompactTextString(m) }
+func (*Dir) ProtoMessage()               {}
+func (*Dir) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
 
 func (m *Dir) GetManifest() *bazil_cas.Manifest {
 	if m != nil {
@@ -87,13 +195,41 @@ type Snapshot struct {
 	Contents *Dirent `protobuf:"bytes,2,opt,name=contents" json:"contents,omitempty"`
 }
 
-func (m *Snapshot) Reset()         { *m = Snapshot{} }
-func (m *Snapshot) String() string { return proto.CompactTextString(m) }
-func (*Snapshot) ProtoMessage()    {}
+func (m *Snapshot) Reset()                    { *m = Snapshot{} }
+func (m *Snapshot) String() string            { return proto.CompactTextString(m) }
+func (*Snapshot) ProtoMessage()               {}
+func (*Snapshot) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
 
 func (m *Snapshot) GetContents() *Dirent {
 	if m != nil {
 		return m.Contents
 	}
 	return nil
+}
+
+func init() {
+	proto.RegisterType((*Dirent)(nil), "bazil.snap.Dirent")
+	proto.RegisterType((*File)(nil), "bazil.snap.File")
+	proto.RegisterType((*Dir)(nil), "bazil.snap.Dir")
+	proto.RegisterType((*Snapshot)(nil), "bazil.snap.Snapshot")
+}
+
+var fileDescriptor0 = []byte{
+	// 256 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x94, 0x50, 0x3d, 0x4f, 0xc3, 0x30,
+	0x10, 0xa5, 0xc4, 0x44, 0xe1, 0x2a, 0x04, 0x32, 0x0c, 0x11, 0x13, 0x0a, 0x12, 0x30, 0xd9, 0x52,
+	0x19, 0xd8, 0x2b, 0x84, 0x18, 0x80, 0xc1, 0x6c, 0x6c, 0x6e, 0x71, 0x8a, 0xa5, 0xd4, 0x0e, 0xb1,
+	0x25, 0x04, 0xbf, 0x9e, 0xcb, 0x39, 0x04, 0x04, 0x2c, 0xdd, 0xce, 0xef, 0xc3, 0x77, 0xef, 0xc1,
+	0xf9, 0x42, 0x7f, 0xd8, 0x46, 0xf8, 0x6e, 0x25, 0x69, 0x92, 0x75, 0x90, 0xc1, 0xe9, 0x56, 0xbe,
+	0xd9, 0xce, 0xd0, 0x24, 0xda, 0xce, 0x47, 0xcf, 0x21, 0x09, 0x7b, 0xe4, 0xf8, 0x8f, 0x69, 0xa9,
+	0x43, 0x32, 0xac, 0xb5, 0xb3, 0xb5, 0x09, 0x31, 0x99, 0xaa, 0x57, 0xc8, 0xaf, 0x11, 0x76, 0x91,
+	0x73, 0x60, 0x4e, 0xaf, 0x4d, 0x39, 0x39, 0x99, 0x5c, 0xec, 0x2a, 0x9a, 0xf9, 0x19, 0xb0, 0xda,
+	0x36, 0xa6, 0xdc, 0x46, 0x6c, 0x3a, 0x3b, 0x10, 0xdf, 0x1b, 0xc4, 0x0d, 0xe2, 0xb7, 0x5b, 0x8a,
+	0x78, 0x7e, 0x0a, 0xd9, 0xb3, 0xed, 0xca, 0x8c, 0x64, 0xfb, 0x3f, 0x65, 0xf8, 0x39, 0xaa, 0x7a,
+	0x76, 0x9e, 0x03, 0x8b, 0xef, 0xad, 0xa9, 0xae, 0x80, 0xf5, 0x66, 0x2e, 0xa1, 0xf8, 0x3a, 0x86,
+	0x96, 0x4e, 0x67, 0x87, 0x83, 0x13, 0x8f, 0x15, 0xf7, 0x03, 0xa5, 0x46, 0x51, 0x75, 0x07, 0x19,
+	0x7e, 0xb7, 0xb1, 0x8f, 0x1f, 0xc1, 0x8e, 0x6e, 0xec, 0xca, 0x51, 0x8c, 0x3d, 0x95, 0x1e, 0xd5,
+	0x03, 0x14, 0x8f, 0x78, 0x61, 0x78, 0xf1, 0xff, 0x67, 0x17, 0x50, 0x2c, 0xbd, 0x8b, 0x58, 0x4d,
+	0x18, 0xf2, 0xf3, 0x5f, 0xc1, 0x90, 0x52, 0xa3, 0x66, 0x9e, 0x3f, 0xb1, 0xbe, 0xe0, 0x45, 0x4e,
+	0xc5, 0x5e, 0x7e, 0x06, 0x00, 0x00, 0xff, 0xff, 0x81, 0x30, 0x50, 0x4f, 0xb8, 0x01, 0x00, 0x00,
 }
