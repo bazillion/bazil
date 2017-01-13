@@ -14,54 +14,155 @@ It has these top-level messages:
 	File
 	Dir
 	Tombstone
+	SnapshotRef
 */
 package wire
 
 import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
+import math "math"
 import bazil_cas "bazil.org/bazil/cas/wire"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
+var _ = fmt.Errorf
+var _ = math.Inf
 
 type Dirent struct {
-	Inode     uint64     `protobuf:"varint,1,opt,name=inode" json:"inode,omitempty"`
-	File      *File      `protobuf:"bytes,2,opt,name=file" json:"file,omitempty"`
-	Dir       *Dir       `protobuf:"bytes,3,opt,name=dir" json:"dir,omitempty"`
-	Tombstone *Tombstone `protobuf:"bytes,4,opt,name=tombstone" json:"tombstone,omitempty"`
+	Inode uint64 `protobuf:"varint,1,opt,name=inode" json:"inode,omitempty"`
+	// Types that are valid to be assigned to Type:
+	//	*Dirent_File
+	//	*Dirent_Dir
+	//	*Dirent_Tombstone
+	Type isDirent_Type `protobuf_oneof:"type"`
 }
 
-func (m *Dirent) Reset()         { *m = Dirent{} }
-func (m *Dirent) String() string { return proto.CompactTextString(m) }
-func (*Dirent) ProtoMessage()    {}
+func (m *Dirent) Reset()                    { *m = Dirent{} }
+func (m *Dirent) String() string            { return proto.CompactTextString(m) }
+func (*Dirent) ProtoMessage()               {}
+func (*Dirent) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+
+type isDirent_Type interface {
+	isDirent_Type()
+}
+
+type Dirent_File struct {
+	File *File `protobuf:"bytes,2,opt,name=file,oneof"`
+}
+type Dirent_Dir struct {
+	Dir *Dir `protobuf:"bytes,3,opt,name=dir,oneof"`
+}
+type Dirent_Tombstone struct {
+	Tombstone *Tombstone `protobuf:"bytes,4,opt,name=tombstone,oneof"`
+}
+
+func (*Dirent_File) isDirent_Type()      {}
+func (*Dirent_Dir) isDirent_Type()       {}
+func (*Dirent_Tombstone) isDirent_Type() {}
+
+func (m *Dirent) GetType() isDirent_Type {
+	if m != nil {
+		return m.Type
+	}
+	return nil
+}
 
 func (m *Dirent) GetFile() *File {
-	if m != nil {
-		return m.File
+	if x, ok := m.GetType().(*Dirent_File); ok {
+		return x.File
 	}
 	return nil
 }
 
 func (m *Dirent) GetDir() *Dir {
-	if m != nil {
-		return m.Dir
+	if x, ok := m.GetType().(*Dirent_Dir); ok {
+		return x.Dir
 	}
 	return nil
 }
 
 func (m *Dirent) GetTombstone() *Tombstone {
-	if m != nil {
-		return m.Tombstone
+	if x, ok := m.GetType().(*Dirent_Tombstone); ok {
+		return x.Tombstone
 	}
 	return nil
+}
+
+// XXX_OneofFuncs is for the internal use of the proto package.
+func (*Dirent) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), []interface{}) {
+	return _Dirent_OneofMarshaler, _Dirent_OneofUnmarshaler, []interface{}{
+		(*Dirent_File)(nil),
+		(*Dirent_Dir)(nil),
+		(*Dirent_Tombstone)(nil),
+	}
+}
+
+func _Dirent_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	m := msg.(*Dirent)
+	// type
+	switch x := m.Type.(type) {
+	case *Dirent_File:
+		b.EncodeVarint(2<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.File); err != nil {
+			return err
+		}
+	case *Dirent_Dir:
+		b.EncodeVarint(3<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Dir); err != nil {
+			return err
+		}
+	case *Dirent_Tombstone:
+		b.EncodeVarint(4<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Tombstone); err != nil {
+			return err
+		}
+	case nil:
+	default:
+		return fmt.Errorf("Dirent.Type has unexpected type %T", x)
+	}
+	return nil
+}
+
+func _Dirent_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	m := msg.(*Dirent)
+	switch tag {
+	case 2: // type.file
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(File)
+		err := b.DecodeMessage(msg)
+		m.Type = &Dirent_File{msg}
+		return true, err
+	case 3: // type.dir
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Dir)
+		err := b.DecodeMessage(msg)
+		m.Type = &Dirent_Dir{msg}
+		return true, err
+	case 4: // type.tombstone
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Tombstone)
+		err := b.DecodeMessage(msg)
+		m.Type = &Dirent_Tombstone{msg}
+		return true, err
+	default:
+		return false, nil
+	}
 }
 
 type File struct {
 	Manifest *bazil_cas.Manifest `protobuf:"bytes,1,opt,name=manifest" json:"manifest,omitempty"`
 }
 
-func (m *File) Reset()         { *m = File{} }
-func (m *File) String() string { return proto.CompactTextString(m) }
-func (*File) ProtoMessage()    {}
+func (m *File) Reset()                    { *m = File{} }
+func (m *File) String() string            { return proto.CompactTextString(m) }
+func (*File) ProtoMessage()               {}
+func (*File) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
 func (m *File) GetManifest() *bazil_cas.Manifest {
 	if m != nil {
@@ -75,13 +176,40 @@ func (m *File) GetManifest() *bazil_cas.Manifest {
 type Dir struct {
 }
 
-func (m *Dir) Reset()         { *m = Dir{} }
-func (m *Dir) String() string { return proto.CompactTextString(m) }
-func (*Dir) ProtoMessage()    {}
+func (m *Dir) Reset()                    { *m = Dir{} }
+func (m *Dir) String() string            { return proto.CompactTextString(m) }
+func (*Dir) ProtoMessage()               {}
+func (*Dir) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
 
 type Tombstone struct {
 }
 
-func (m *Tombstone) Reset()         { *m = Tombstone{} }
-func (m *Tombstone) String() string { return proto.CompactTextString(m) }
-func (*Tombstone) ProtoMessage()    {}
+func (m *Tombstone) Reset()                    { *m = Tombstone{} }
+func (m *Tombstone) String() string            { return proto.CompactTextString(m) }
+func (*Tombstone) ProtoMessage()               {}
+func (*Tombstone) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+
+func init() {
+	proto.RegisterType((*Dirent)(nil), "bazil.db.Dirent")
+	proto.RegisterType((*File)(nil), "bazil.db.File")
+	proto.RegisterType((*Dir)(nil), "bazil.db.Dir")
+	proto.RegisterType((*Tombstone)(nil), "bazil.db.Tombstone")
+}
+
+var fileDescriptor0 = []byte{
+	// 223 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0xe2, 0x52, 0x49, 0x4a, 0xac, 0xca,
+	0xcc, 0xd1, 0xcb, 0x2f, 0x4a, 0xd7, 0x07, 0xb3, 0xf4, 0xd3, 0x8a, 0xf5, 0xcb, 0x33, 0x8b, 0x52,
+	0xf5, 0x53, 0x80, 0x44, 0x5e, 0x89, 0x5e, 0x41, 0x51, 0x7e, 0x49, 0xbe, 0x10, 0x07, 0x44, 0x55,
+	0x4a, 0x92, 0x94, 0x3a, 0xba, 0xfa, 0xe4, 0x44, 0xa8, 0x86, 0xdc, 0xc4, 0xbc, 0xcc, 0xb4, 0xd4,
+	0x62, 0xa8, 0x16, 0xa5, 0x76, 0x46, 0x2e, 0x36, 0x17, 0xb0, 0x19, 0x42, 0xbc, 0x5c, 0xac, 0x99,
+	0x79, 0xf9, 0x29, 0xa9, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0x2c, 0x42, 0x72, 0x5c, 0x2c, 0x69, 0x99,
+	0x39, 0xa9, 0x12, 0x4c, 0x40, 0x1e, 0xb7, 0x11, 0x9f, 0x1e, 0xcc, 0x6c, 0x3d, 0x37, 0xa0, 0xa8,
+	0x07, 0x83, 0x90, 0x0c, 0x17, 0x33, 0xd0, 0x72, 0x09, 0x66, 0xb0, 0x34, 0x2f, 0x42, 0x1a, 0x68,
+	0x1a, 0x50, 0x56, 0x83, 0x8b, 0xb3, 0x24, 0x3f, 0x37, 0xa9, 0xb8, 0x24, 0x3f, 0x2f, 0x55, 0x82,
+	0x05, 0xac, 0x46, 0x18, 0xa1, 0x26, 0x04, 0x26, 0xe5, 0xc1, 0xe0, 0xc4, 0xc6, 0xc5, 0x52, 0x52,
+	0x59, 0x90, 0xaa, 0xa4, 0xcb, 0xc5, 0x02, 0x32, 0x59, 0x48, 0x95, 0x8b, 0x03, 0xe6, 0x46, 0xb0,
+	0x4b, 0x10, 0x1a, 0x81, 0x7e, 0xd0, 0xf3, 0x85, 0x4a, 0x29, 0xb1, 0x72, 0x31, 0x03, 0x6d, 0x52,
+	0xe2, 0xe6, 0xe2, 0x84, 0x1b, 0xe6, 0xc4, 0x16, 0xc5, 0x02, 0xf2, 0x63, 0x12, 0x1b, 0xd8, 0x6f,
+	0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0x7d, 0x92, 0x31, 0x0d, 0x36, 0x01, 0x00, 0x00,
+}
