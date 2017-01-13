@@ -19,8 +19,8 @@ import (
 // Serve this snapshot with FUSE, with this object store.
 func Open(chunkStore chunks.Store, de *wire.Dirent) (fusefs.Node, error) {
 	switch {
-	case de.File != nil:
-		manifest, err := de.File.Manifest.ToBlob("file")
+	case de.GetFile() != nil:
+		manifest, err := de.GetFile().Manifest.ToBlob("file")
 		if err != nil {
 			return nil, err
 		}
@@ -30,8 +30,8 @@ func Open(chunkStore chunks.Store, de *wire.Dirent) (fusefs.Node, error) {
 		}
 		return child, nil
 
-	case de.Dir != nil:
-		manifest, err := de.Dir.Manifest.ToBlob("dir")
+	case de.GetDir() != nil:
+		manifest, err := de.GetDir().Manifest.ToBlob("dir")
 		if err != nil {
 			return nil, err
 		}
@@ -42,7 +42,7 @@ func Open(chunkStore chunks.Store, de *wire.Dirent) (fusefs.Node, error) {
 		child := fuseDir{
 			chunkStore: chunkStore,
 			blob:       blob,
-			align:      de.Dir.Align,
+			align:      de.GetDir().Align,
 		}
 		return child, nil
 
@@ -104,9 +104,9 @@ func (d fuseDir) ReadDirAll(ctx context.Context) ([]fuse.Dirent, error) {
 		fde := fuse.Dirent{
 			Name: de.Name,
 		}
-		if de.File != nil {
+		if de.GetFile() != nil {
 			fde.Type = fuse.DT_File
-		} else if de.Dir != nil {
+		} else if de.GetDir() != nil {
 			fde.Type = fuse.DT_Dir
 		}
 		list = append(list, fde)

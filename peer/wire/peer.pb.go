@@ -27,6 +27,8 @@ It has these top-level messages:
 package wire
 
 import proto "github.com/golang/protobuf/proto"
+import fmt "fmt"
+import math "math"
 import bazil_cas "bazil.org/bazil/cas/wire"
 
 import (
@@ -36,6 +38,12 @@ import (
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
+var _ = fmt.Errorf
+var _ = math.Inf
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the proto package it is being compiled against.
+const _ = proto.ProtoPackageIsVersion1
 
 type VolumeSyncPullItem_Error int32
 
@@ -57,20 +65,23 @@ var VolumeSyncPullItem_Error_value = map[string]int32{
 func (x VolumeSyncPullItem_Error) String() string {
 	return proto.EnumName(VolumeSyncPullItem_Error_name, int32(x))
 }
+func (VolumeSyncPullItem_Error) EnumDescriptor() ([]byte, []int) { return fileDescriptor0, []int{9, 0} }
 
 type PingRequest struct {
 }
 
-func (m *PingRequest) Reset()         { *m = PingRequest{} }
-func (m *PingRequest) String() string { return proto.CompactTextString(m) }
-func (*PingRequest) ProtoMessage()    {}
+func (m *PingRequest) Reset()                    { *m = PingRequest{} }
+func (m *PingRequest) String() string            { return proto.CompactTextString(m) }
+func (*PingRequest) ProtoMessage()               {}
+func (*PingRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
 type PingResponse struct {
 }
 
-func (m *PingResponse) Reset()         { *m = PingResponse{} }
-func (m *PingResponse) String() string { return proto.CompactTextString(m) }
-func (*PingResponse) ProtoMessage()    {}
+func (m *PingResponse) Reset()                    { *m = PingResponse{} }
+func (m *PingResponse) String() string            { return proto.CompactTextString(m) }
+func (*PingResponse) ProtoMessage()               {}
+func (*PingResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
 type ObjectPutRequest struct {
 	// Only set in the first streamed message.
@@ -78,57 +89,64 @@ type ObjectPutRequest struct {
 	Data []byte `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
 }
 
-func (m *ObjectPutRequest) Reset()         { *m = ObjectPutRequest{} }
-func (m *ObjectPutRequest) String() string { return proto.CompactTextString(m) }
-func (*ObjectPutRequest) ProtoMessage()    {}
+func (m *ObjectPutRequest) Reset()                    { *m = ObjectPutRequest{} }
+func (m *ObjectPutRequest) String() string            { return proto.CompactTextString(m) }
+func (*ObjectPutRequest) ProtoMessage()               {}
+func (*ObjectPutRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
 
 type ObjectPutResponse struct {
 }
 
-func (m *ObjectPutResponse) Reset()         { *m = ObjectPutResponse{} }
-func (m *ObjectPutResponse) String() string { return proto.CompactTextString(m) }
-func (*ObjectPutResponse) ProtoMessage()    {}
+func (m *ObjectPutResponse) Reset()                    { *m = ObjectPutResponse{} }
+func (m *ObjectPutResponse) String() string            { return proto.CompactTextString(m) }
+func (*ObjectPutResponse) ProtoMessage()               {}
+func (*ObjectPutResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
 
 type ObjectGetRequest struct {
 	Key []byte `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
 }
 
-func (m *ObjectGetRequest) Reset()         { *m = ObjectGetRequest{} }
-func (m *ObjectGetRequest) String() string { return proto.CompactTextString(m) }
-func (*ObjectGetRequest) ProtoMessage()    {}
+func (m *ObjectGetRequest) Reset()                    { *m = ObjectGetRequest{} }
+func (m *ObjectGetRequest) String() string            { return proto.CompactTextString(m) }
+func (*ObjectGetRequest) ProtoMessage()               {}
+func (*ObjectGetRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
 
 type ObjectGetResponse struct {
 	Data []byte `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 }
 
-func (m *ObjectGetResponse) Reset()         { *m = ObjectGetResponse{} }
-func (m *ObjectGetResponse) String() string { return proto.CompactTextString(m) }
-func (*ObjectGetResponse) ProtoMessage()    {}
+func (m *ObjectGetResponse) Reset()                    { *m = ObjectGetResponse{} }
+func (m *ObjectGetResponse) String() string            { return proto.CompactTextString(m) }
+func (*ObjectGetResponse) ProtoMessage()               {}
+func (*ObjectGetResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
 
 type VolumeConnectRequest struct {
 	VolumeName string `protobuf:"bytes,1,opt,name=volumeName" json:"volumeName,omitempty"`
 }
 
-func (m *VolumeConnectRequest) Reset()         { *m = VolumeConnectRequest{} }
-func (m *VolumeConnectRequest) String() string { return proto.CompactTextString(m) }
-func (*VolumeConnectRequest) ProtoMessage()    {}
+func (m *VolumeConnectRequest) Reset()                    { *m = VolumeConnectRequest{} }
+func (m *VolumeConnectRequest) String() string            { return proto.CompactTextString(m) }
+func (*VolumeConnectRequest) ProtoMessage()               {}
+func (*VolumeConnectRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
 
 type VolumeConnectResponse struct {
 	VolumeID []byte `protobuf:"bytes,1,opt,name=volumeID,proto3" json:"volumeID,omitempty"`
 }
 
-func (m *VolumeConnectResponse) Reset()         { *m = VolumeConnectResponse{} }
-func (m *VolumeConnectResponse) String() string { return proto.CompactTextString(m) }
-func (*VolumeConnectResponse) ProtoMessage()    {}
+func (m *VolumeConnectResponse) Reset()                    { *m = VolumeConnectResponse{} }
+func (m *VolumeConnectResponse) String() string            { return proto.CompactTextString(m) }
+func (*VolumeConnectResponse) ProtoMessage()               {}
+func (*VolumeConnectResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
 
 type VolumeSyncPullRequest struct {
 	VolumeID []byte `protobuf:"bytes,1,opt,name=volumeID,proto3" json:"volumeID,omitempty"`
 	Path     string `protobuf:"bytes,2,opt,name=path" json:"path,omitempty"`
 }
 
-func (m *VolumeSyncPullRequest) Reset()         { *m = VolumeSyncPullRequest{} }
-func (m *VolumeSyncPullRequest) String() string { return proto.CompactTextString(m) }
-func (*VolumeSyncPullRequest) ProtoMessage()    {}
+func (m *VolumeSyncPullRequest) Reset()                    { *m = VolumeSyncPullRequest{} }
+func (m *VolumeSyncPullRequest) String() string            { return proto.CompactTextString(m) }
+func (*VolumeSyncPullRequest) ProtoMessage()               {}
+func (*VolumeSyncPullRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
 
 type VolumeSyncPullItem struct {
 	// This is used to work around gRPC fixed error codes and error
@@ -153,9 +171,10 @@ type VolumeSyncPullItem struct {
 	Children []*Dirent `protobuf:"bytes,3,rep,name=children" json:"children,omitempty"`
 }
 
-func (m *VolumeSyncPullItem) Reset()         { *m = VolumeSyncPullItem{} }
-func (m *VolumeSyncPullItem) String() string { return proto.CompactTextString(m) }
-func (*VolumeSyncPullItem) ProtoMessage()    {}
+func (m *VolumeSyncPullItem) Reset()                    { *m = VolumeSyncPullItem{} }
+func (m *VolumeSyncPullItem) String() string            { return proto.CompactTextString(m) }
+func (*VolumeSyncPullItem) ProtoMessage()               {}
+func (*VolumeSyncPullItem) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9} }
 
 func (m *VolumeSyncPullItem) GetPeers() map[uint32][]byte {
 	if m != nil {
@@ -172,45 +191,167 @@ func (m *VolumeSyncPullItem) GetChildren() []*Dirent {
 }
 
 type Dirent struct {
-	Name      string     `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
-	File      *File      `protobuf:"bytes,2,opt,name=file" json:"file,omitempty"`
-	Dir       *Dir       `protobuf:"bytes,3,opt,name=dir" json:"dir,omitempty"`
-	Tombstone *Tombstone `protobuf:"bytes,5,opt,name=tombstone" json:"tombstone,omitempty"`
-	Clock     []byte     `protobuf:"bytes,4,opt,name=clock,proto3" json:"clock,omitempty"`
+	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
+	// Types that are valid to be assigned to Type:
+	//	*Dirent_File
+	//	*Dirent_Dir
+	//	*Dirent_Tombstone
+	Type  isDirent_Type `protobuf_oneof:"type"`
+	Clock []byte        `protobuf:"bytes,4,opt,name=clock,proto3" json:"clock,omitempty"`
 }
 
-func (m *Dirent) Reset()         { *m = Dirent{} }
-func (m *Dirent) String() string { return proto.CompactTextString(m) }
-func (*Dirent) ProtoMessage()    {}
+func (m *Dirent) Reset()                    { *m = Dirent{} }
+func (m *Dirent) String() string            { return proto.CompactTextString(m) }
+func (*Dirent) ProtoMessage()               {}
+func (*Dirent) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10} }
+
+type isDirent_Type interface {
+	isDirent_Type()
+}
+
+type Dirent_File struct {
+	File *File `protobuf:"bytes,2,opt,name=file,oneof"`
+}
+type Dirent_Dir struct {
+	Dir *Dir `protobuf:"bytes,3,opt,name=dir,oneof"`
+}
+type Dirent_Tombstone struct {
+	Tombstone *Tombstone `protobuf:"bytes,5,opt,name=tombstone,oneof"`
+}
+
+func (*Dirent_File) isDirent_Type()      {}
+func (*Dirent_Dir) isDirent_Type()       {}
+func (*Dirent_Tombstone) isDirent_Type() {}
+
+func (m *Dirent) GetType() isDirent_Type {
+	if m != nil {
+		return m.Type
+	}
+	return nil
+}
 
 func (m *Dirent) GetFile() *File {
-	if m != nil {
-		return m.File
+	if x, ok := m.GetType().(*Dirent_File); ok {
+		return x.File
 	}
 	return nil
 }
 
 func (m *Dirent) GetDir() *Dir {
-	if m != nil {
-		return m.Dir
+	if x, ok := m.GetType().(*Dirent_Dir); ok {
+		return x.Dir
 	}
 	return nil
 }
 
 func (m *Dirent) GetTombstone() *Tombstone {
-	if m != nil {
-		return m.Tombstone
+	if x, ok := m.GetType().(*Dirent_Tombstone); ok {
+		return x.Tombstone
 	}
 	return nil
+}
+
+// XXX_OneofFuncs is for the internal use of the proto package.
+func (*Dirent) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
+	return _Dirent_OneofMarshaler, _Dirent_OneofUnmarshaler, _Dirent_OneofSizer, []interface{}{
+		(*Dirent_File)(nil),
+		(*Dirent_Dir)(nil),
+		(*Dirent_Tombstone)(nil),
+	}
+}
+
+func _Dirent_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	m := msg.(*Dirent)
+	// type
+	switch x := m.Type.(type) {
+	case *Dirent_File:
+		b.EncodeVarint(2<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.File); err != nil {
+			return err
+		}
+	case *Dirent_Dir:
+		b.EncodeVarint(3<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Dir); err != nil {
+			return err
+		}
+	case *Dirent_Tombstone:
+		b.EncodeVarint(5<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.Tombstone); err != nil {
+			return err
+		}
+	case nil:
+	default:
+		return fmt.Errorf("Dirent.Type has unexpected type %T", x)
+	}
+	return nil
+}
+
+func _Dirent_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	m := msg.(*Dirent)
+	switch tag {
+	case 2: // type.file
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(File)
+		err := b.DecodeMessage(msg)
+		m.Type = &Dirent_File{msg}
+		return true, err
+	case 3: // type.dir
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Dir)
+		err := b.DecodeMessage(msg)
+		m.Type = &Dirent_Dir{msg}
+		return true, err
+	case 5: // type.tombstone
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(Tombstone)
+		err := b.DecodeMessage(msg)
+		m.Type = &Dirent_Tombstone{msg}
+		return true, err
+	default:
+		return false, nil
+	}
+}
+
+func _Dirent_OneofSizer(msg proto.Message) (n int) {
+	m := msg.(*Dirent)
+	// type
+	switch x := m.Type.(type) {
+	case *Dirent_File:
+		s := proto.Size(x.File)
+		n += proto.SizeVarint(2<<3 | proto.WireBytes)
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *Dirent_Dir:
+		s := proto.Size(x.Dir)
+		n += proto.SizeVarint(3<<3 | proto.WireBytes)
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *Dirent_Tombstone:
+		s := proto.Size(x.Tombstone)
+		n += proto.SizeVarint(5<<3 | proto.WireBytes)
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case nil:
+	default:
+		panic(fmt.Sprintf("proto: unexpected type %T in oneof", x))
+	}
+	return n
 }
 
 type File struct {
 	Manifest *bazil_cas.Manifest `protobuf:"bytes,1,opt,name=manifest" json:"manifest,omitempty"`
 }
 
-func (m *File) Reset()         { *m = File{} }
-func (m *File) String() string { return proto.CompactTextString(m) }
-func (*File) ProtoMessage()    {}
+func (m *File) Reset()                    { *m = File{} }
+func (m *File) String() string            { return proto.CompactTextString(m) }
+func (*File) ProtoMessage()               {}
+func (*File) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11} }
 
 func (m *File) GetManifest() *bazil_cas.Manifest {
 	if m != nil {
@@ -222,24 +363,44 @@ func (m *File) GetManifest() *bazil_cas.Manifest {
 type Dir struct {
 }
 
-func (m *Dir) Reset()         { *m = Dir{} }
-func (m *Dir) String() string { return proto.CompactTextString(m) }
-func (*Dir) ProtoMessage()    {}
+func (m *Dir) Reset()                    { *m = Dir{} }
+func (m *Dir) String() string            { return proto.CompactTextString(m) }
+func (*Dir) ProtoMessage()               {}
+func (*Dir) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{12} }
 
 type Tombstone struct {
 }
 
-func (m *Tombstone) Reset()         { *m = Tombstone{} }
-func (m *Tombstone) String() string { return proto.CompactTextString(m) }
-func (*Tombstone) ProtoMessage()    {}
+func (m *Tombstone) Reset()                    { *m = Tombstone{} }
+func (m *Tombstone) String() string            { return proto.CompactTextString(m) }
+func (*Tombstone) ProtoMessage()               {}
+func (*Tombstone) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{13} }
 
 func init() {
+	proto.RegisterType((*PingRequest)(nil), "bazil.peer.PingRequest")
+	proto.RegisterType((*PingResponse)(nil), "bazil.peer.PingResponse")
+	proto.RegisterType((*ObjectPutRequest)(nil), "bazil.peer.ObjectPutRequest")
+	proto.RegisterType((*ObjectPutResponse)(nil), "bazil.peer.ObjectPutResponse")
+	proto.RegisterType((*ObjectGetRequest)(nil), "bazil.peer.ObjectGetRequest")
+	proto.RegisterType((*ObjectGetResponse)(nil), "bazil.peer.ObjectGetResponse")
+	proto.RegisterType((*VolumeConnectRequest)(nil), "bazil.peer.VolumeConnectRequest")
+	proto.RegisterType((*VolumeConnectResponse)(nil), "bazil.peer.VolumeConnectResponse")
+	proto.RegisterType((*VolumeSyncPullRequest)(nil), "bazil.peer.VolumeSyncPullRequest")
+	proto.RegisterType((*VolumeSyncPullItem)(nil), "bazil.peer.VolumeSyncPullItem")
+	proto.RegisterType((*Dirent)(nil), "bazil.peer.Dirent")
+	proto.RegisterType((*File)(nil), "bazil.peer.File")
+	proto.RegisterType((*Dir)(nil), "bazil.peer.Dir")
+	proto.RegisterType((*Tombstone)(nil), "bazil.peer.Tombstone")
 	proto.RegisterEnum("bazil.peer.VolumeSyncPullItem_Error", VolumeSyncPullItem_Error_name, VolumeSyncPullItem_Error_value)
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
 var _ grpc.ClientConn
+
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion1
 
 // Client API for Peer service
 
@@ -389,9 +550,9 @@ func RegisterPeerServer(s *grpc.Server, srv PeerServer) {
 	s.RegisterService(&_Peer_serviceDesc, srv)
 }
 
-func _Peer_Ping_Handler(srv interface{}, ctx context.Context, codec grpc.Codec, buf []byte) (interface{}, error) {
+func _Peer_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
 	in := new(PingRequest)
-	if err := codec.Unmarshal(buf, in); err != nil {
+	if err := dec(in); err != nil {
 		return nil, err
 	}
 	out, err := srv.(PeerServer).Ping(ctx, in)
@@ -448,9 +609,9 @@ func (x *peerObjectGetServer) Send(m *ObjectGetResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func _Peer_VolumeConnect_Handler(srv interface{}, ctx context.Context, codec grpc.Codec, buf []byte) (interface{}, error) {
+func _Peer_VolumeConnect_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error) (interface{}, error) {
 	in := new(VolumeConnectRequest)
-	if err := codec.Unmarshal(buf, in); err != nil {
+	if err := dec(in); err != nil {
 		return nil, err
 	}
 	out, err := srv.(PeerServer).VolumeConnect(ctx, in)
@@ -511,4 +672,49 @@ var _Peer_serviceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
+}
+
+var fileDescriptor0 = []byte{
+	// 653 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x09, 0x6e, 0x88, 0x02, 0xff, 0x84, 0x54, 0x5d, 0x53, 0xd3, 0x4c,
+	0x14, 0x6e, 0x68, 0xda, 0x97, 0x9e, 0xf0, 0xd1, 0x77, 0x81, 0x31, 0x93, 0x51, 0x06, 0x56, 0x46,
+	0xe0, 0x26, 0x75, 0xca, 0xa8, 0x0c, 0x5e, 0x38, 0x52, 0x2a, 0x32, 0xa3, 0xd0, 0x49, 0x11, 0x47,
+	0x6f, 0x98, 0x34, 0x2c, 0x10, 0x49, 0x93, 0x9a, 0x6c, 0x71, 0xea, 0xaf, 0xf0, 0x17, 0x79, 0xe1,
+	0x2f, 0x73, 0x3f, 0xf2, 0xb1, 0x2d, 0x50, 0xaf, 0xb2, 0x7b, 0xce, 0xf3, 0x3c, 0xe7, 0x9c, 0xcd,
+	0x3e, 0x0b, 0x1b, 0x3d, 0xf7, 0xa7, 0x1f, 0xd8, 0x51, 0x7c, 0xd5, 0x10, 0xab, 0xc6, 0x80, 0x90,
+	0xb8, 0xf1, 0xc3, 0x8f, 0x89, 0x58, 0xd9, 0x83, 0x38, 0xa2, 0x11, 0x02, 0x89, 0xe2, 0x11, 0x6b,
+	0x73, 0x92, 0xe1, 0xb9, 0x89, 0x24, 0xf4, 0xdd, 0xd0, 0xbf, 0x24, 0x09, 0x95, 0x24, 0x3c, 0x0f,
+	0x46, 0xc7, 0x0f, 0xaf, 0x1c, 0xf2, 0x7d, 0xc8, 0x82, 0x78, 0x01, 0xe6, 0xe4, 0x36, 0x19, 0x44,
+	0x61, 0x42, 0xf0, 0x2e, 0xd4, 0x4f, 0x7a, 0xdf, 0x88, 0x47, 0x3b, 0x43, 0x9a, 0x62, 0x50, 0x1d,
+	0xca, 0x37, 0x64, 0x64, 0x6a, 0x6b, 0xda, 0xd6, 0x9c, 0xc3, 0x97, 0x08, 0x81, 0x7e, 0xe1, 0x52,
+	0xd7, 0x9c, 0x11, 0x21, 0xb1, 0xc6, 0x4b, 0xf0, 0xbf, 0xc2, 0x4c, 0xe5, 0x36, 0x32, 0xb9, 0x43,
+	0xf2, 0xb0, 0x1c, 0xde, 0xcc, 0xa8, 0x02, 0x25, 0xa9, 0x79, 0x0d, 0x4d, 0xa9, 0xf1, 0x12, 0x96,
+	0xcf, 0xa2, 0x60, 0xd8, 0x27, 0xad, 0x28, 0x0c, 0x19, 0x3e, 0x93, 0x5c, 0x05, 0xb8, 0x15, 0xf1,
+	0x63, 0xb7, 0x4f, 0x04, 0xa3, 0xe6, 0x28, 0x11, 0xbc, 0x03, 0x2b, 0x13, 0xbc, 0xb4, 0x88, 0x05,
+	0xb3, 0x12, 0x76, 0x74, 0x90, 0x16, 0xca, 0xf7, 0xf8, 0x30, 0x23, 0x75, 0x47, 0xa1, 0xd7, 0x19,
+	0x06, 0x41, 0x56, 0x6d, 0x0a, 0x89, 0x77, 0x3d, 0x70, 0xe9, 0xb5, 0x38, 0x99, 0x9a, 0x23, 0xd6,
+	0xf8, 0xcf, 0x0c, 0xa0, 0x71, 0xa5, 0x23, 0x4a, 0xfa, 0x68, 0x0f, 0x2a, 0x24, 0x8e, 0xa3, 0x58,
+	0x68, 0x2c, 0x34, 0x37, 0xec, 0xe2, 0x77, 0xda, 0x77, 0xe1, 0x76, 0x9b, 0x63, 0x1d, 0x49, 0x41,
+	0x6f, 0xa0, 0xc2, 0x71, 0x09, 0xab, 0x53, 0xde, 0x32, 0x9a, 0xdb, 0xff, 0xe0, 0x76, 0x38, 0xb6,
+	0x1d, 0xd2, 0x78, 0xe4, 0x48, 0x1e, 0x9f, 0xe1, 0xc2, 0x8f, 0x5b, 0x41, 0xe4, 0xdd, 0x98, 0xba,
+	0x9c, 0x21, 0xdb, 0x23, 0x1b, 0x66, 0xbd, 0x6b, 0x3f, 0xb8, 0x88, 0x49, 0x68, 0x96, 0x85, 0x3e,
+	0x52, 0xf5, 0x0f, 0xd8, 0xad, 0x0a, 0xa9, 0x93, 0x63, 0xac, 0x5d, 0x80, 0xa2, 0x80, 0xfa, 0x7b,
+	0xe7, 0xe5, 0x6d, 0x59, 0x86, 0xca, 0xad, 0x1b, 0x0c, 0x49, 0x7a, 0x5d, 0xe4, 0x66, 0x6f, 0x66,
+	0x57, 0xc3, 0xdb, 0x50, 0x11, 0x63, 0x21, 0x03, 0xfe, 0xeb, 0x7e, 0x6a, 0xb5, 0xda, 0xdd, 0x6e,
+	0xbd, 0x84, 0x96, 0x60, 0xf1, 0xf8, 0xe4, 0xf4, 0xfc, 0xed, 0xf9, 0xc1, 0x91, 0xd3, 0x6e, 0x9d,
+	0x9e, 0x38, 0x5f, 0xea, 0x1a, 0xfe, 0xad, 0x41, 0x55, 0x56, 0xe6, 0x67, 0x1c, 0x16, 0xff, 0x59,
+	0xac, 0xd1, 0x33, 0xd0, 0x2f, 0xfd, 0x40, 0x96, 0x30, 0x9a, 0x75, 0xb5, 0xdf, 0x77, 0x2c, 0xfe,
+	0xbe, 0xe4, 0x88, 0x3c, 0x7a, 0x0a, 0x65, 0x36, 0x27, 0x1b, 0x8b, 0xc3, 0x16, 0x27, 0xc6, 0x62,
+	0x28, 0x9e, 0x45, 0x2f, 0xa0, 0x46, 0xa3, 0x7e, 0x2f, 0xa1, 0x51, 0x48, 0xcc, 0x8a, 0x80, 0xae,
+	0xa8, 0xd0, 0xd3, 0x2c, 0xc9, 0x08, 0x05, 0x92, 0xcf, 0xe9, 0x29, 0x07, 0x2a, 0x37, 0xfb, 0x55,
+	0xd0, 0xe9, 0x68, 0x40, 0xf0, 0x2b, 0xd0, 0x79, 0x27, 0xa8, 0x01, 0xb3, 0x99, 0x25, 0xc5, 0x04,
+	0x46, 0x73, 0x29, 0xd5, 0x66, 0x96, 0xb5, 0x3f, 0xa6, 0x29, 0x27, 0x07, 0xe1, 0x0a, 0x94, 0x59,
+	0x6f, 0xd8, 0x80, 0x5a, 0x5e, 0xb7, 0xf9, 0xab, 0x0c, 0x3a, 0x3f, 0x73, 0xf4, 0x9a, 0x7d, 0x99,
+	0x7f, 0xd1, 0x23, 0xb5, 0x3f, 0xc5, 0xe0, 0x96, 0x79, 0x37, 0x91, 0x7a, 0xb3, 0x84, 0x3e, 0x40,
+	0x2d, 0xb7, 0x2c, 0x7a, 0xac, 0x02, 0x27, 0xdf, 0x00, 0xeb, 0xc9, 0x03, 0xd9, 0x4c, 0x6b, 0x4b,
+	0x2b, 0xd4, 0x98, 0x8b, 0xef, 0x53, 0x2b, 0x9e, 0x80, 0xfb, 0xd4, 0x14, 0xeb, 0xe3, 0xd2, 0x73,
+	0x0d, 0x9d, 0xc1, 0xfc, 0x98, 0x65, 0xd1, 0xda, 0xdd, 0x3b, 0x3e, 0xfe, 0x0a, 0x58, 0xeb, 0x53,
+	0x10, 0xf9, 0xcc, 0x9f, 0x61, 0x61, 0xdc, 0x20, 0x68, 0xfd, 0x61, 0xf3, 0x64, 0xca, 0xab, 0xd3,
+	0xfd, 0xc5, 0x1b, 0xde, 0xaf, 0x7e, 0xd5, 0xf9, 0x7b, 0xdb, 0xab, 0x8a, 0x77, 0x76, 0xe7, 0x6f,
+	0x00, 0x00, 0x00, 0xff, 0xff, 0x52, 0xcb, 0x9d, 0x70, 0xc4, 0x05, 0x00, 0x00,
 }
